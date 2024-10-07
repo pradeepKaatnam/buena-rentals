@@ -3,29 +3,57 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid2';
 import Stack from '@mui/material/Stack';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Stepper from '@mui/material/Stepper';
 import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider, PaletteMode } from '@mui/material/styles';
-import { Input } from '@mui/material';
 import RentalsInfo from './RentalsInfo';
 import PersonalInformation from './Forms/PersonalInformation';
 import FinancialInformation from './Forms/FinancialInformation';
 import Review from './Review';
 import useStyles from './Register.styles';
-
-function getStepContent(step: number) {
-    return <Input placeholder="Enter your address" />;
-}
+import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
+import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
+import { useInit } from './Register.hooks';
 
 const Register: React.FC = () => {
     const steps = ['Personal Info', 'Financial Info', 'Review'];
     const [activeStep, setActiveStep] = React.useState(0);
+    const { state, actions } = useInit();
     const classes = useStyles();
+
+    const getStepContent = (step: number) => {
+        switch (step) {
+            case 0:
+                return <PersonalInformation formData={state.personalInformation} onFormChange={onFormChange} />;
+            case 1:
+                return <FinancialInformation formData={state.financialInformation} onFormChange={onFormChange} />;
+            case 2:
+                return <Review personalInformation={state.personalInformation} financialInformation={state.financialInformation} />;
+            default:
+                return 'Unknown step';
+        }
+    }
+
+    const handleBack = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    }
+
+    const handleNext = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    }
+
+    const onFormChange = (formType: string, key: string, value: string) => {    
+        console.log('formType', formType, 'key', key, 'value', value);
+        if(formType === 'personalInformation') {
+            actions.updatePersonalInformation(key, value);
+        } else {
+            actions.updateFinancialInformation(key, value);
+        }
+        //actions.updateForm(formType, key, value);
+    }
 
     return <>
         <Grid container sx={{ height: { xs: '100%', sm: '100dvh' } }}>
@@ -170,7 +198,7 @@ const Register: React.FC = () => {
                 </Stack>
               ) : (
                 <React.Fragment>
-                  <Review/>
+                  {getStepContent(activeStep)}
                   <Box
                     sx={[
                       {
@@ -190,8 +218,8 @@ const Register: React.FC = () => {
                   >
                     {activeStep !== 0 && (
                       <Button
-                        //startIcon={<ChevronLeftRoundedIcon />}
-                        //onClick={handleBack}
+                        startIcon={<ChevronLeftRoundedIcon />}
+                        onClick={handleBack}
                         variant="text"
                         sx={{ display: { xs: 'none', sm: 'flex' } }}
                       >
@@ -200,8 +228,8 @@ const Register: React.FC = () => {
                     )}
                     {activeStep !== 0 && (
                       <Button
-                        //startIcon={<ChevronLeftRoundedIcon />}
-                        //onClick={handleBack}
+                        startIcon={<ChevronLeftRoundedIcon />}
+                        onClick={handleBack}
                         variant="outlined"
                         fullWidth
                         sx={{ display: { xs: 'flex', sm: 'none' } }}
@@ -211,11 +239,11 @@ const Register: React.FC = () => {
                     )}
                     <Button
                       variant="contained"
-                      //endIcon={<ChevronRightRoundedIcon />}
-                      //onClick={handleNext}
+                      endIcon={<ChevronRightRoundedIcon />}
+                      onClick={handleNext}
                       sx={{ width: { xs: '100%', sm: 'fit-content' } }}
                     >
-                      {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                      {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
                     </Button>
                   </Box>
                 </React.Fragment>
