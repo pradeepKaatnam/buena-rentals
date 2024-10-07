@@ -7,14 +7,23 @@ import useStyles from '../Register.styles';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
+import { IFinancialInformationProps } from '../Register.models';
 
 const FormGrid = styled(Grid)(() => ({
     display: 'flex',
     flexDirection: 'column',
   }));
 
-const FinancialInformation: React.FC = () => {
+const FinancialInformation: React.FC<IFinancialInformationProps> = (props: IFinancialInformationProps) => {
     const classes = useStyles();
+
+    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      props.onFormChange && props.onFormChange('financial', event.target.name, event.target.value);
+    }
+
+    const handleSelectChange = (event: SelectChangeEvent<number>) => {
+      props.onFormChange && props.onFormChange('financial', 'employmentStatus', event.target.value as string);
+    };
 
     return (
         <Grid container spacing={3}>
@@ -25,9 +34,9 @@ const FinancialInformation: React.FC = () => {
             <Select
                 labelId="employment-status"
                 id="employment"
-                value={1}
+                value={Number(props.formData.employmentStatus)}
                 label="Age"
-                //onChange={handleChange}
+                onChange={handleSelectChange}
                 fullWidth
                 style={{ height: '42px' }}
             >
@@ -38,15 +47,17 @@ const FinancialInformation: React.FC = () => {
             </Select>
           </FormGrid>
           <FormGrid size={{ xs: 12, md: 6 }}>
-            <FormLabel htmlFor="cccupation" className={classes.formLabel} required>
+            <FormLabel htmlFor="occupation" className={classes.formLabel} required>
                 Occupation
             </FormLabel>
             <OutlinedInput
-              id="cccupation-id"
-              name="cccupation"
-              type="cccupation"
+              id="occupation-id"
+              name="occupation"
+              type="occupation"
               required
               size="small"
+              value={props.formData.occupation}
+              onChange={onChange}
             />
           </FormGrid>
           <FormGrid size={{ xs: 12, md: 6 }}>
@@ -55,10 +66,12 @@ const FinancialInformation: React.FC = () => {
             </FormLabel>
             <OutlinedInput
               id="employer-name"
-              name="employer-name"
+              name="employer"
               type="employer-name"
               required
               size="small"
+              value={props.formData.employer}
+              onChange={onChange}
             />
           </FormGrid>
           <FormGrid size={{ xs: 12, md: 6 }}>
@@ -67,22 +80,24 @@ const FinancialInformation: React.FC = () => {
                 </FormLabel>
                 <OutlinedInput
                 id="work-duration-id"
-                name="work-duration"
+                name="workDuration"
                 type="work-duration"
                 required
                 size="small"
+                value={props.formData.workDuration}
+                onChange={onChange}
                 />
           </FormGrid>
           <FormGrid size={{ xs: 12, md: 6 }}>
                 <FormLabel component="legend" className={classes.formLabel} required>
                 Salary Indication
                 </FormLabel>
-                <RadioGroup aria-label="salary" name="salary">
-                <FormControlLabel value="0-1000" control={<Radio />} label="0 - 1.000" />
-                <FormControlLabel value="1000-2000" control={<Radio />} label="1.000 - 2.000" />
-                <FormControlLabel value="2000-3000" control={<Radio />} label="2.000 - 3.000" />
-                <FormControlLabel value="3000-4000" control={<Radio />} label="3.000 - 4.000" />
-                <FormControlLabel value="4000+" control={<Radio />} label="Mehr als 4.000" />
+                <RadioGroup aria-label="salary" name="salaryIndication" value={props.formData.salaryIndication} onChange={onChange}>
+                  <FormControlLabel value="0-1000" control={<Radio />} label="0 - 1.000" />
+                  <FormControlLabel value="1000-2000" control={<Radio />} label="1.000 - 2.000" />
+                  <FormControlLabel value="2000-3000" control={<Radio />} label="2.000 - 3.000" />
+                  <FormControlLabel value="3000-4000" control={<Radio />} label="3.000 - 4.000" />
+                  <FormControlLabel value="4000+" control={<Radio />} label="Mehr als 4.000" />
                 </RadioGroup>
             </FormGrid>
             
