@@ -18,20 +18,27 @@ export interface IReviewProps {
 }
 
 export interface IPersonalInformation {
-    firstName: string;
-    lastName: string;
-    addressLine1: string;
-    addressLine2?: string;
-    email: string;
-    nationality: string;
+    [key: string]: IFormField;
+    firstName: IFormField;
+    lastName: IFormField;
+    addressLine1: IFormField;
+    addressLine2: IFormField;
+    email: IFormField;
+    nationality: IFormField;
+}
+
+export interface IFormField {
+    value: string;
+    error: string;
 }
 
 export interface IFinancialInformation {
-    employmentStatus: string;
-    employer: string;
-    occupation: string;
-    workDuration: string;
-    salaryIndication: number;
+    [key: string]: IFormField;
+    employmentStatus: IFormField;
+    employer: IFormField;
+    occupation: IFormField;
+    workDuration: IFormField;
+    salaryIndication: IFormField;
 }
 
 export interface IRegisterState {

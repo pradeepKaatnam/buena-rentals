@@ -4,6 +4,13 @@ import Grid from '@mui/material/Grid2';
 import { IRegisterProps, IReviewProps } from './Register.models';
 
 const Review: React.FC<IReviewProps> = (props: IReviewProps) => {
+    const employmentStatusMap: { [key: number]: string } = {
+        1: 'Employed',
+        2: 'Self-employed',
+        3: 'Student',
+        4: 'Other',
+      };
+
     return (
         <Stack
         direction="column"
@@ -19,13 +26,13 @@ const Review: React.FC<IReviewProps> = (props: IReviewProps) => {
             }}>
             Personal Information
           </Typography>
-          <Typography gutterBottom>{props.personalInformation.firstName} {props.personalInformation.lastName}</Typography>
+          <Typography gutterBottom>{props.personalInformation.firstName.value} {props.personalInformation.lastName.value}</Typography>
           <Typography gutterBottom sx={{ color: 'text.secondary' }}>
-            {props.personalInformation.addressLine1}
-            {props.personalInformation.addressLine2 && `, ${props.personalInformation.addressLine2}`}
+            {props.personalInformation.addressLine1.value}
+            {props.personalInformation.addressLine2.value && `, ${props.personalInformation.addressLine2.value}`}
           </Typography>
-          <Typography gutterBottom>{props.personalInformation.email}</Typography>
-          <Typography gutterBottom>{props.personalInformation.nationality}</Typography>
+          <Typography gutterBottom>{props.personalInformation.email.value}</Typography>
+          <Typography gutterBottom>{props.personalInformation.nationality.value}</Typography>
         </div>
         <div>
           <Typography variant="subtitle2" gutterBottom sx={{
@@ -36,22 +43,84 @@ const Review: React.FC<IReviewProps> = (props: IReviewProps) => {
             Financial Information
           </Typography>
           <Grid container>
-          {Object.entries(props.financialInformation).map(([key, value], index) => (
-                <Stack
-                key={index}
+            <Stack
                 direction="row"
                 spacing={1}
                 useFlexGap
                 sx={{ width: '100%', mb: 1 }}
-              >
-                <Typography variant="body1" sx={{ color: 'text.secondary' }}>
-                  {key.charAt(0).toUpperCase() + key.slice(1)}:
-                </Typography>
-                <Typography variant="body2" style={{ marginTop: '2px' }}>
-                  {value}
-                </Typography>
-              </Stack>
-            ))}
+                >
+                    <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+                     Employment Status:
+                    </Typography>
+                    <Typography variant="body2" style={{ marginTop: '2px' }}>
+                    {props.financialInformation.employmentStatus.value}
+                    </Typography>
+            </Stack>
+            <Stack
+                direction="row"
+                spacing={1}
+                useFlexGap
+                sx={{ width: '100%', mb: 1 }}
+                >
+                    <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+                     Occupation:
+                    </Typography>
+                    <Typography variant="body2" style={{ marginTop: '2px' }}>
+                        {employmentStatusMap[Number(props.financialInformation.employmentStatus.value)]}
+                    </Typography>
+            </Stack>
+            <Stack
+                direction="row"
+                spacing={1}
+                useFlexGap
+                sx={{ width: '100%', mb: 1 }}
+                >
+                    <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+                     Occupation:
+                    </Typography>
+                    <Typography variant="body2" style={{ marginTop: '2px' }}>
+                    {props.financialInformation.occupation.value}
+                    </Typography>
+            </Stack>
+            <Stack
+                direction="row"
+                spacing={1}
+                useFlexGap
+                sx={{ width: '100%', mb: 1 }}
+                >
+                    <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+                     Employer:
+                    </Typography>
+                    <Typography variant="body2" style={{ marginTop: '2px' }}>
+                    {props.financialInformation.employer.value}
+                    </Typography>
+            </Stack>
+            <Stack
+                direction="row"
+                spacing={1}
+                useFlexGap
+                sx={{ width: '100%', mb: 1 }}
+                >
+                    <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+                     Work Duration:
+                    </Typography>
+                    <Typography variant="body2" style={{ marginTop: '2px' }}>
+                    {props.financialInformation.workDuration.value}
+                    </Typography>
+            </Stack>
+            <Stack
+                direction="row"
+                spacing={1}
+                useFlexGap
+                sx={{ width: '100%', mb: 1 }}
+                >
+                    <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+                     Salary Indication:
+                    </Typography>
+                    <Typography variant="body2" style={{ marginTop: '2px' }}>
+                    {props.financialInformation.salaryIndication.value}
+                    </Typography>
+            </Stack>
           </Grid>
         </div>
       </Stack>

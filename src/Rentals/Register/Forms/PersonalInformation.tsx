@@ -5,12 +5,13 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import { styled } from '@mui/system';
 import useStyles from '../Register.styles';
 import { IPersonalInformationProps } from '../Register.models';
+import { FormHelperText } from '@mui/material';
 
 const FormGrid = styled(Grid)(() => ({
   display: 'flex',
   flexDirection: 'column',
 }));
-
+  
 const PersonalInformation: React.FC<IPersonalInformationProps> = (props: IPersonalInformationProps) => {
     const classes = useStyles();
     
@@ -32,9 +33,10 @@ const PersonalInformation: React.FC<IPersonalInformationProps> = (props: IPerson
               autoComplete="first name"
               required
               size="small"
-              value={props.formData.firstName}
+              value={props.formData.firstName.value}
               onChange={onChange}
             />
+            {props.formData.firstName.error && <FormHelperText sx={{ color: 'red' }}>{props.formData.firstName.error}</FormHelperText>}
           </FormGrid>
           <FormGrid size={{ xs: 12, md: 6 }}>
             <FormLabel htmlFor="last-name" className={classes.formLabel} required>
@@ -49,8 +51,9 @@ const PersonalInformation: React.FC<IPersonalInformationProps> = (props: IPerson
               required
               size="small"
               onChange={onChange}
-              value={props.formData.lastName}
+              value={props.formData.lastName.value}
             />
+            {props.formData.lastName.error && <FormHelperText sx={{ color: 'red' }}>{props.formData.lastName.error}</FormHelperText>}
           </FormGrid>
           <FormGrid size={{ xs: 12 }}>
             <FormLabel htmlFor="address1" className={classes.formLabel} required>
@@ -65,8 +68,9 @@ const PersonalInformation: React.FC<IPersonalInformationProps> = (props: IPerson
               required
               size="small"
               onChange={onChange}
-              value={props.formData.addressLine1}
+              value={props.formData.addressLine1.value}
             />
+            {props.formData.addressLine1.error && <FormHelperText sx={{ color: 'red' }}>{props.formData.addressLine1.error}</FormHelperText>}
           </FormGrid>
           <FormGrid size={{ xs: 12 }}>
             <FormLabel htmlFor="address2" className={classes.formLabel}>Address line 2</FormLabel>
@@ -79,7 +83,7 @@ const PersonalInformation: React.FC<IPersonalInformationProps> = (props: IPerson
               required
               size="small"
               onChange={onChange}
-              value={props.formData.addressLine2}
+              value={props.formData.addressLine2?.value}
             />
           </FormGrid>
           <FormGrid size={{ xs: 6 }}>
@@ -95,8 +99,9 @@ const PersonalInformation: React.FC<IPersonalInformationProps> = (props: IPerson
               required
               size="small"
               onChange={onChange}
-              value={props.formData.email}
+              value={props.formData.email.value}
             />
+            {props.formData.email.error && <FormHelperText sx={{ color: 'red' }}>{props.formData.email.error}</FormHelperText>}
           </FormGrid>
           <FormGrid size={{ xs: 6 }}>
             <FormLabel htmlFor="state" className={classes.formLabel} required>
@@ -109,8 +114,9 @@ const PersonalInformation: React.FC<IPersonalInformationProps> = (props: IPerson
               required
               size="small"
               onChange={onChange}
-              value={props.formData.nationality}
+              value={props.formData.nationality.value}
             />
+            {props.formData.nationality.error && <FormHelperText sx={{ color: 'red' }}>{props.formData.nationality.error}</FormHelperText>}
           </FormGrid>
         </Grid>
       );
