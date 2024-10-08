@@ -17,6 +17,7 @@ import useStyles from './Register.styles';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import { useInit } from './Register.hooks';
+import { validateFinancialInformation, validatePersonalInformation } from '../../common/utilities/form-utilities';
 
 const Register: React.FC = () => {
     const steps = ['Personal Info', 'Financial Info', 'Review'];
@@ -42,17 +43,34 @@ const Register: React.FC = () => {
     }
 
     const handleNext = () => {
+        if(activeStep === 0) {
+            const isValidForm = validatePersonalInformation(state.personalInformation);
+            if(!isValidForm) {
+                actions.updatePersonalInformation(state.personalInformation);
+                return;
+            }
+        } else if (activeStep === 1) {
+            const isValidForm = validateFinancialInformation(state.financialInformation);
+            if(!isValidForm) {
+                actions.updateFinancialInformation(state.financialInformation);
+                return;
+            }
+        }
+
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
 
     const onFormChange = (formType: string, key: string, value: string) => {    
         console.log('formType', formType, 'key', key, 'value', value);
+        var formField = {
+            value: value,
+            error: value === '' ? 'This field is required' : ''
+        };
         if(formType === 'personalInformation') {
-            actions.updatePersonalInformation(key, value);
+            actions.updatePersonalInformationEntry(key, formField);
         } else {
-            actions.updateFinancialInformation(key, value);
+            actions.updateFinancialInformationEntry(key, formField);
         }
-        //actions.updateForm(formType, key, value);
     }
 
     return <>
