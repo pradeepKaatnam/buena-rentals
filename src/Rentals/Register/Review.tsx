@@ -22,7 +22,7 @@ const Review: React.FC<IReviewProps> = (props: IReviewProps) => {
           <Typography variant="subtitle2" gutterBottom sx={{
                 fontWeight: 'bold',
                 marginBottom: 2,
-                color: 'primary.main',
+                color: 'black',
             }}>
             Personal Information
           </Typography>
@@ -38,7 +38,7 @@ const Review: React.FC<IReviewProps> = (props: IReviewProps) => {
           <Typography variant="subtitle2" gutterBottom sx={{
                 fontWeight: 'bold',
                 marginBottom: 2,
-                color: 'primary.main',
+                color: 'black',
             }}>
             Financial Information
           </Typography>
@@ -53,20 +53,7 @@ const Review: React.FC<IReviewProps> = (props: IReviewProps) => {
                      Employment Status:
                     </Typography>
                     <Typography variant="body2" style={{ marginTop: '2px' }}>
-                    {props.financialInformation.employmentStatus.value}
-                    </Typography>
-            </Stack>
-            <Stack
-                direction="row"
-                spacing={1}
-                useFlexGap
-                sx={{ width: '100%', mb: 1 }}
-                >
-                    <Typography variant="body1" sx={{ color: 'text.secondary' }}>
-                     Occupation:
-                    </Typography>
-                    <Typography variant="body2" style={{ marginTop: '2px' }}>
-                        {employmentStatusMap[Number(props.financialInformation.employmentStatus.value)]}
+                    {employmentStatusMap[Number(props.financialInformation.employmentStatus.value)]}
                     </Typography>
             </Stack>
             <Stack
