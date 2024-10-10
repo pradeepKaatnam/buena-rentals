@@ -13,7 +13,7 @@ const RentalsInfo: React.FC = () => {
         <Typography variant="h2" gutterBottom>
             Buena 
         </Typography>
-        <Typography variant="body1">
+        <Typography variant="body1" align="justify">
           Our program, Buena Rentals, is dedicated to providing the best rental services in the industry. 
           We offer a wide range of rental properties to suit all needs and budgets. Our team is committed 
           to ensuring that our clients have a seamless and enjoyable rental experience.

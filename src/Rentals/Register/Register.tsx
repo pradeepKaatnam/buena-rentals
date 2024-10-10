@@ -13,7 +13,7 @@ import RentalsInfo from './RentalsInfo';
 import PersonalInformation from './Forms/PersonalInformation';
 import FinancialInformation from './Forms/FinancialInformation';
 import Review from './Review';
-import useStyles from './Register.styles';
+import useStyles, { RegisterStyles } from './Register.styles';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import { useInit } from './Register.hooks';
@@ -61,7 +61,6 @@ const Register: React.FC = () => {
     }
 
     const onFormChange = (formType: string, key: string, value: string) => {    
-        console.log('formType', formType, 'key', key, 'value', value);
         var formField = {
             value: value,
             error: value === '' ? 'This field is required' : ''
@@ -77,61 +76,19 @@ const Register: React.FC = () => {
         <Grid container sx={{ height: { xs: '100%', sm: '100dvh' } }}>
           <Grid
             size={{ xs: 12, sm: 5, lg: 4 }}
-            sx={{
-              display: { xs: 'none', md: 'flex' },
-              flexDirection: 'column',
-              backgroundColor: 'background.paper',
-              borderRight: { sm: 'none', md: '1px solid' },
-              borderColor: { sm: 'none', md: 'divider' },
-              alignItems: 'start',
-              pt: 16,
-              px: 10,
-              gap: 4,
-            }}
+            sx={RegisterStyles.gridLeftContainer}
           >
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                flexGrow: 1,
-                width: '100%',
-                maxWidth: 500,
-              }}
-            >
-                <RentalsInfo/>
-            </Box>
+            <RentalsInfo/>
           </Grid>
           <Grid
             size={{ sm: 12, md: 7, lg: 8 }}
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              maxWidth: '100%',
-              width: '100%',
-              backgroundColor: { xs: 'transparent', sm: 'background.default' },
-              alignItems: 'start',
-              pt: { xs: 6, sm: 16 },
-              px: { xs: 2, sm: 10 },
-              gap: { xs: 4, md: 8 },
-            }}
+            sx={RegisterStyles.rightGridContainer}
           >
             <Box
-              sx={{
-                display: 'flex',
-                justifyContent: { sm: 'space-between', md: 'flex-end' },
-                alignItems: 'center',
-                width: '100%',
-                maxWidth: { sm: '100%', md: 600 },
-              }}
+              sx={RegisterStyles.rightGridBox}
             >
               <Box
-                sx={{
-                  display: { xs: 'none', md: 'flex' },
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-end',
-                  flexGrow: 1,
-                }}
+                sx={RegisterStyles.stepperBox}
               >
                 <Stepper
                   id="desktop-stepper"
@@ -140,8 +97,7 @@ const Register: React.FC = () => {
                 >
                   {steps.map((label) => (
                     <Step
-                      sx={{ ':first-child': { pl: 0 }, ':last-child': { pr: 0 } }}
-                      key={label}
+                    sx={RegisterStyles.steps}
                     >
                       <StepLabel>{label}</StepLabel>
                     </Step>
@@ -152,33 +108,15 @@ const Register: React.FC = () => {
             <Card sx={{ display: { xs: 'flex', md: 'none' }, width: '100%' }}>
               <CardContent
                 sx={{
-                  display: 'flex',
-                  width: '100%',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
+                  backgroundColor: 'black',
+                  color: 'white',
                 }}
               >
-                <div>
-                  <Typography variant="subtitle2" gutterBottom>
-                    Selected products
-                  </Typography>
-                  <Typography variant="body1">
-                    {activeStep >= 2 ? '$144.97' : '$134.98'}
-                  </Typography>
-                </div>
-                {/* <InfoMobile totalPrice={activeStep >= 2 ? '$144.97' : '$134.98'} /> */}
+                <RentalsInfo/>
               </CardContent>
             </Card>
             <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                flexGrow: 1,
-                width: '100%',
-                maxWidth: { sm: '100%', md: 600 },
-                maxHeight: '720px',
-                gap: { xs: 5, md: 'none' },
-              }}
+              sx={RegisterStyles.stepperBoxMobile}
             >
               <Stepper
                 id="mobile-stepper"
@@ -188,11 +126,7 @@ const Register: React.FC = () => {
               >
                 {steps.map((label) => (
                   <Step
-                    sx={{
-                      ':first-child': { pl: 0 },
-                      ':last-child': { pr: 0 },
-                      '& .MuiStepConnector-root': { top: { xs: 6, sm: 12 } },
-                    }}
+                    sx={RegisterStyles.steps}
                     key={label}
                   >
                     <StepLabel
@@ -205,11 +139,12 @@ const Register: React.FC = () => {
               </Stepper>
               {activeStep === steps.length ? (
                 <Stack spacing={2} useFlexGap>
-                  <Typography variant="h1">📦</Typography>
+                  <Typography variant="h1">🎉</Typography>
                   <Typography variant="h5">Thank you for registering!</Typography>
+                  <br/>
                   <Button
                     variant="contained"
-                    sx={{ alignSelf: 'start', width: { xs: '100%', sm: 'auto' } }}
+                    sx={{ alignSelf: 'start', width: { xs: '100%', sm: 'auto' }, backgroundColor: 'black',}}
                   >
                     Go to rentals
                   </Button>
@@ -219,16 +154,7 @@ const Register: React.FC = () => {
                   {getStepContent(activeStep)}
                   <Box
                     sx={[
-                      {
-                        display: 'flex',
-                        flexDirection: { xs: 'column-reverse', sm: 'row' },
-                        alignItems: 'end',
-                        flexGrow: 1,
-                        gap: 1,
-                        pb: { xs: 12, sm: 0 },
-                        mt: { xs: 2, sm: 0 },
-                        mb: '60px',
-                      },
+                      RegisterStyles.buttonsBox,
                       activeStep !== 0
                         ? { justifyContent: 'space-between' }
                         : { justifyContent: 'flex-end' },
@@ -240,26 +166,17 @@ const Register: React.FC = () => {
                         onClick={handleBack}
                         variant="text"
                         sx={{ display: { xs: 'none', sm: 'flex' } }}
-                      >
-                        Previous
-                      </Button>
-                    )}
-                    {activeStep !== 0 && (
-                      <Button
-                        startIcon={<ChevronLeftRoundedIcon />}
-                        onClick={handleBack}
-                        variant="outlined"
-                        fullWidth
-                        sx={{ display: { xs: 'flex', sm: 'none' } }}
+                        style={{ color: 'black' }}
                       >
                         Previous
                       </Button>
                     )}
                     <Button
                       variant="contained"
-                      endIcon={<ChevronRightRoundedIcon />}
+                      endIcon={activeStep < steps.length - 1 && <ChevronRightRoundedIcon /> }
                       onClick={handleNext}
-                      sx={{ width: { xs: '100%', sm: 'fit-content' } }}
+                      sx={{ width: { xs: '100%', sm: 'fit-content', backgroundColor: 'black',
+                        color: 'white' } }}
                     >
                       {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
                     </Button>
