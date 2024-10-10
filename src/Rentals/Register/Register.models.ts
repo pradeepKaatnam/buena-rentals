@@ -44,7 +44,6 @@ export interface IFinancialInformation {
 export interface IRegisterState {
     personalInformation: IPersonalInformation;
     financialInformation: IFinancialInformation;
-    isSubmitting: boolean;
-    isSubmitted: boolean;
-    errorMessage: string;
+    loading?: boolean;
+    errorMessage?: string;
 }

@@ -27,6 +27,9 @@ export const registerReducer = (state: IRegisterState, action: IRegisterDispatch
         case REGISTER_ACTIONS.UPDATE_PERSONAL_INFO: {
             return { ...state,  personalInformation: action.data };
         }
+        case REGISTER_ACTIONS.UPDATE_API_FLOW: {
+            return { ...state, ...action.data };
+        }
         default: {
           throw new Error(`Unhandled action type`);
         }
