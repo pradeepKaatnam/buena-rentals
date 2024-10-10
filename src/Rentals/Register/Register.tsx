@@ -18,6 +18,7 @@ import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import { useInit } from './Register.hooks';
 import { validateFinancialInformation, validatePersonalInformation } from '../../common/utilities/form-utilities';
+import { CircularProgress } from '@mui/material';
 
 const Register: React.FC = () => {
     const steps = ['Personal Info', 'Financial Info', 'Review'];
@@ -42,7 +43,7 @@ const Register: React.FC = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     }
 
-    const handleNext = () => {
+    const handleNext = async () => {
         if(activeStep === 0) {
             const isValidForm = validatePersonalInformation(state.personalInformation);
             if(!isValidForm) {
@@ -55,6 +56,10 @@ const Register: React.FC = () => {
                 actions.updateFinancialInformation(state.financialInformation);
                 return;
             }
+        }
+
+        if(activeStep === 2) {
+            await actions.register(state.personalInformation, state.financialInformation);
         }
 
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -73,6 +78,11 @@ const Register: React.FC = () => {
     }
 
     return <>
+        {state.loading && (
+            <Box sx={RegisterStyles.loader}>
+                <CircularProgress />
+            </Box>
+        )}
         <Grid container sx={{ height: { xs: '100%', sm: '100dvh' } }}>
           <Grid
             size={{ xs: 12, sm: 5, lg: 4 }}
