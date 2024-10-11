@@ -107,7 +107,8 @@ const Register: React.FC = () => {
                 >
                   {steps.map((label) => (
                     <Step
-                    sx={RegisterStyles.steps}
+                      sx={RegisterStyles.steps}
+                      key={label}
                     >
                       <StepLabel>{label}</StepLabel>
                     </Step>
