@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import FormLabel from '@mui/material/FormLabel';
 import Grid from '@mui/material/Grid2';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -6,7 +6,7 @@ import { styled } from '@mui/system';
 import useStyles from '../Register.styles';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import { FormControl, FormControlLabel, FormHelperText, Radio, RadioGroup } from '@mui/material';
+import { FormControlLabel, FormHelperText, Radio, RadioGroup } from '@mui/material';
 import { IFinancialInformationProps } from '../Register.models';
 
 const FormGrid = styled(Grid)(() => ({

@@ -1,7 +1,7 @@
 import { Divider, Stack, Typography } from '@mui/material';
 import React from 'react';
 import Grid from '@mui/material/Grid2';
-import { IRegisterProps, IReviewProps } from './Register.models';
+import { IReviewProps } from './Register.models';
 
 const Review: React.FC<IReviewProps> = (props: IReviewProps) => {
     const employmentStatusMap: { [key: number]: string } = {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import FormLabel from '@mui/material/FormLabel';
 import Grid from '@mui/material/Grid2';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -94,7 +94,6 @@ const PersonalInformation: React.FC<IPersonalInformationProps> = (props: IPerson
               id="city"
               name="email"
               type="city"
-              placeholder="New York"
               autoComplete="City"
               required
               size="small"

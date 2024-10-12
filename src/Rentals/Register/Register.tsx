@@ -13,7 +13,7 @@ import RentalsInfo from './RentalsInfo';
 import PersonalInformation from './Forms/PersonalInformation';
 import FinancialInformation from './Forms/FinancialInformation';
 import Review from './Review';
-import useStyles, { RegisterStyles } from './Register.styles';
+import { RegisterStyles } from './Register.styles';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import { useInit } from './Register.hooks';
@@ -24,7 +24,6 @@ const Register: React.FC = () => {
     const steps = ['Personal Info', 'Financial Info', 'Review'];
     const [activeStep, setActiveStep] = React.useState(0);
     const { state, actions } = useInit();
-    const classes = useStyles();
 
     const getStepContent = (step: number) => {
         switch (step) {

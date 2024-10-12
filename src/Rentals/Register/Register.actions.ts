@@ -1,4 +1,3 @@
-import { IResposeData } from "../../common/models/common.models";
 import { IFinancialInformation, IFormField, IPersonalInformation } from "./Register.models";
 import { IRegisterService } from "./Register.service";
 
