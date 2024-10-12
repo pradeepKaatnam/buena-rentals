@@ -4,7 +4,7 @@ Buena Rentals is a web application for managing rental properties. This project 
 
 ## Clone the repository and checkout to master branch
 `git clone https://github.com/your-username/buena-rentals.git`\
-`cd buena-rentals`
+`cd buena-rentals` \
 `git checkout master`
 
 ### `npm install`
